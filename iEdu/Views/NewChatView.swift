@@ -9,18 +9,17 @@ import SwiftUI
 
 struct NewChatView : View {
     
-    @ObservedObject var datas = GetAllUsers()
+    @ObservedObject var viewModel = UsersViewModel()
     @Binding var name : String
     @Binding var uid : String
     @Binding var pic : String
     @Binding var show : Bool
     @Binding var chat : Bool
     
-    
     var body : some View {
         VStack(alignment: .leading) {
-            if self.datas.users.count == 0 {
-                if self.datas.empty {
+            if self.viewModel.users.count == 0 {
+                if self.viewModel.empty {
                     Text("No Users Found")
                 } else {
                     Indicator()
@@ -30,7 +29,7 @@ struct NewChatView : View {
                 
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack(spacing: 12) {
-                        ForEach(datas.users) { i in
+                        ForEach(viewModel.users) { i in
                             Button(action: {
                                 self.uid = i.id
                                 self.name = i.name
@@ -41,7 +40,6 @@ struct NewChatView : View {
                                 UserCellView(url: i.pic, name: i.name, about: i.about)
                             }
                         }
-                        
                     }
                     
                 }

@@ -10,17 +10,18 @@ import Firebase
 
 struct Verification : View {
     
-    @State private var code = String()
-    @State private var no = String()
-    @State private var show = false
-    @State private var msg = String()
-    @State private var alert = false
-    @State private var ID = String()
+    @State var code = String()
+    @State var no = String()
+    @State var show = false
+    @State var msg = String()
+    @State var alert = false
+    @State var ID = String()
     
     var body : some View {
         VStack(spacing: 20) {
             
-            //Image("edu_pic")
+          //  Image("edu_pic")
+           //     .frame(width: 25, height: 25)
             
             Text("Verify Your Number")
                 .font(.largeTitle)
@@ -37,13 +38,13 @@ struct Verification : View {
                     .keyboardType(.numberPad)
                     .frame(width: 45)
                     .padding()
-                    .background(Color(.gray))
+                    .background(Color(.lightGray))
                     .clipShape(RoundedRectangle(cornerRadius: 10))
                 
                 TextField("Number", text: $no)
                     .keyboardType(.numberPad)
                     .padding()
-                    .background(Color(.gray))
+                    .background(Color(.lightGray))
                     .clipShape(RoundedRectangle(cornerRadius: 10))
                 
             }.padding(.top, 15)
@@ -68,7 +69,7 @@ struct Verification : View {
                     Text("Send")
                         .frame(width: UIScreen.main.bounds.width - 30, height: 50)
                 }.foregroundColor(.white)
-                .background(Color.orange)
+                .background(Color.blue)
                 .cornerRadius(10)
             }.navigationBarTitle(String())
             .navigationBarHidden(true)

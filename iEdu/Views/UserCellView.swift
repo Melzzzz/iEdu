@@ -36,10 +36,8 @@ struct UserCellView : View {
     }
 }
 
-struct User : Identifiable {
-    
-    var id : String
-    var name : String
-    var pic : String
-    var about : String
+struct UserCellView_Previews: PreviewProvider {
+    static var previews: some View {
+        UserCellView(url: "test.com", name: "John Doe", about: "something about me")
+    }
 }

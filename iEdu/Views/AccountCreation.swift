@@ -17,6 +17,8 @@ struct AccountCreation : View {
     @State var imagedata : Data = .init(count: 0)
     @State var alert = false
     
+    var usersViewModel = UsersViewModel()
+    
     var body : some View {
         
         VStack(alignment: .leading, spacing: 15) {
@@ -45,7 +47,7 @@ struct AccountCreation : View {
             TextField("Name", text: self.$name)
                 .keyboardType(.numberPad)
                 .padding()
-                .background(Color("Color"))
+                .background(Color(.lightGray))
                 .clipShape(RoundedRectangle(cornerRadius: 10))
                 .padding(.top, 15)
             
@@ -57,7 +59,7 @@ struct AccountCreation : View {
             TextField("About", text: self.$about)
                 .keyboardType(.numberPad)
                 .padding()
-                .background(Color("Color"))
+                .background(Color(.lightGray))
                 .clipShape(RoundedRectangle(cornerRadius: 10))
                 .padding(.top, 15)
             
@@ -72,7 +74,7 @@ struct AccountCreation : View {
                     if self.name != String() && self.about != String() && self.imagedata.count != 0 {
                         
                         self.loading.toggle()
-                        createUser(name: self.name, about: self.about, imagedata: self.imagedata) { status in
+                        usersViewModel.createUser(name: self.name, about: self.about, imagedata: self.imagedata) { status in
                             if status {
                                 self.show.toggle()
                             }
@@ -83,7 +85,7 @@ struct AccountCreation : View {
                 }) {
                     Text("Create").frame(width: UIScreen.main.bounds.width - 30,height: 50)
                 }.foregroundColor(.white)
-                .background(Color.orange)
+                .background(Color.blue)
                 .cornerRadius(10)
             }
         }

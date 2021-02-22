@@ -15,14 +15,16 @@ struct ChatView : View {
     var pic : String
     var uid : String
     @Binding var chat : Bool
-    @State var msgs: [Msg] = []
+    @State var messages: [Message] = []
     @State var txt = String()
-    @State var nomsgs = false
+    @State var noMessages = false
+    
+    var messagesViewModel = MessagesViewModel()
     
     var body : some View {
         VStack {
-            if msgs.count == 0 {
-                if self.nomsgs {
+            if messages.count == 0 {
+                if self.noMessages {
                     Text("Start New Conversation !!!").foregroundColor(Color.black.opacity(0.5)).padding(.top)
                     Spacer()
                 } else {
@@ -33,7 +35,7 @@ struct ChatView : View {
             } else {
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack(spacing: 8) {
-                        ForEach(self.msgs) { i in
+                        ForEach(self.messages) { i in
                             HStack {
                                 if i.user == UserDefaults.standard.value(forKey: "UID") as! String {
                                     Spacer()
@@ -55,13 +57,13 @@ struct ChatView : View {
             HStack {
                 TextField("Enter Message", text: self.$txt).textFieldStyle(RoundedBorderTextFieldStyle())
                 Button(action: {
-                    sendMsg(user: self.name, uid: self.uid, pic: self.pic, date: Date(), msg: self.txt)
+                    messagesViewModel.sendMessage(user: self.name, uid: self.uid, pic: self.pic, date: Date(), msg: self.txt)
                     self.txt = String()
                 }) {
                     Text("Send")
                 }
             }
-            .navigationBarTitle("(name)",displayMode: .inline)
+            .navigationBarTitle(self.name, displayMode: .inline)
             .navigationBarBackButtonHidden(true)
             .navigationBarItems(leading: Button(action: {
                 self.chat.toggle()
@@ -70,23 +72,23 @@ struct ChatView : View {
             }))
         }.padding()
         .onAppear {
-            self.getMsgs()
+            self.getMessages()
         }
     }
     
-    func getMsgs() {
+    func getMessages() {
         let db = Firestore.firestore()
         let uid = Auth.auth().currentUser?.uid
         
         db.collection("msgs").document(uid!).collection(self.uid).order(by: "date", descending: false).addSnapshotListener { (snap, err) in
             if err != nil {
                 print((err?.localizedDescription)!)
-                self.nomsgs = true
+                self.noMessages = true
                 return
             }
             
             if snap!.isEmpty {
-                self.nomsgs = true
+                self.noMessages = true
             }
             
             for i in snap!.documentChanges {
@@ -96,7 +98,7 @@ struct ChatView : View {
                     let msg = i.document.get("msg") as! String
                     let user = i.document.get("user") as! String
                     
-                    self.msgs.append(Msg(id: id, msg: msg, user: user))
+                    self.messages.append(Message(id: id, msg: msg, user: user))
                 }
             }
         }

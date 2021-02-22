@@ -18,13 +18,15 @@ struct VerificationCode : View {
     @State private var creation = false
     @State private var loading = false
     
+    var usersViewModel = UsersViewModel()
+    
     var body : some View {
         
         ZStack(alignment: .topLeading) {
             GeometryReader { _ in
                 VStack(spacing: 20) {
                     
-                    //Image("edu_pic")
+                  //  Image("edu_pic")
                     
                     Text("Verification Code")
                         .font(.largeTitle)
@@ -32,13 +34,13 @@ struct VerificationCode : View {
                     
                     Text("Please Enter The Verification Code")
                         .font(.body)
-                        .foregroundColor(.gray)
+                        .foregroundColor(Color(.lightGray))
                         .padding(.top, 12)
                     
                     TextField("Code", text: $code)
                         .keyboardType(.numberPad)
                         .padding()
-                        .background(Color(.gray))
+                        .background(Color(.lightGray))
                         .clipShape(RoundedRectangle(cornerRadius: 10))
                         .padding(.top, 15)
                     
@@ -63,7 +65,7 @@ struct VerificationCode : View {
                                     return
                                 }
                                 
-                                checkUser { (exists, user, uid, pic) in
+                                usersViewModel.checkUser { (exists, user, uid, pic) in
                                     if exists {
                                         UserDefaults.standard.set(true, forKey: "status")
                                         UserDefaults.standard.set(user, forKey: "UserName")
@@ -82,7 +84,7 @@ struct VerificationCode : View {
                                 .frame(width: UIScreen.main.bounds.width - 30, height: 50)
                         }
                         .foregroundColor(.white)
-                        .background(Color.orange)
+                        .background(Color.blue)
                         .cornerRadius(10)
                     }
                 }
@@ -93,7 +95,7 @@ struct VerificationCode : View {
             }) {     
                 Image(systemName: "chevron.left")
                     .font(.title)
-            }.foregroundColor(.orange) 
+            }.foregroundColor(.blue)
         }
         .padding()
         .navigationBarTitle(String())
