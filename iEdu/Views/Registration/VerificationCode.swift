@@ -82,8 +82,7 @@ struct VerificationCode : View {
                         }) {
                             Text("Verify")
                                 .frame(width: UIScreen.main.bounds.width - 30, height: 50)
-                        }
-                        .foregroundColor(.white)
+                        }.foregroundColor(.white)
                         .background(Color.blue)
                         .cornerRadius(10)
                     }

@@ -10,13 +10,6 @@ import Firebase
 import FirebaseStorage
 import FirebaseFirestore
 
-struct User : Identifiable {
-    var id : String
-    var name : String
-    var pic : String
-    var about : String
-}
-
 class UsersViewModel: ObservableObject {
     
     @Published var users: [User] = []

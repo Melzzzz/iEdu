@@ -68,8 +68,7 @@ struct Verification : View {
                 }) {
                     Text("Send")
                         .frame(width: UIScreen.main.bounds.width - 30, height: 50)
-                }.foregroundColor(.white)
-                .background(Color.blue)
+                }.background(Color.blue)
                 .cornerRadius(10)
             }.navigationBarTitle(String())
             .navigationBarHidden(true)

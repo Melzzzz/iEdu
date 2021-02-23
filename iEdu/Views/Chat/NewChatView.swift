@@ -45,5 +45,6 @@ struct NewChatView : View {
                 }
             }
         }.padding()
+        .modifier(DarkModeViewModifier())
     }
 }

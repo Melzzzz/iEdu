@@ -84,8 +84,7 @@ struct AccountCreation : View {
                     }
                 }) {
                     Text("Create").frame(width: UIScreen.main.bounds.width - 30,height: 50)
-                }.foregroundColor(.white)
-                .background(Color.blue)
+                }.background(Color.blue)
                 .cornerRadius(10)
             }
         }

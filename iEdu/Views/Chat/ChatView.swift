@@ -43,9 +43,11 @@ struct ChatView : View {
                                         .padding()
                                         .background(Color.blue)
                                         .clipShape(ChatBubble(mymsg: true))
-                                        .foregroundColor(.white)
                                 } else {
-                                    Text(i.msg).padding().background(Color.green).clipShape(ChatBubble(mymsg: false)).foregroundColor(.white)
+                                    Text(i.msg)
+                                        .padding()
+                                        .background(Color.green)
+                                        .clipShape(ChatBubble(mymsg: false))
                                     Spacer()
                                 }
                             }

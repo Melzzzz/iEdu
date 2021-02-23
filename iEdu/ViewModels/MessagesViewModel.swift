@@ -37,9 +37,9 @@ class MessagesViewModel: ObservableObject {
     
     func getMessages() {
         let db = Firestore.firestore()
-        let uid = Auth.auth().currentUser?.uid
+        guard let uid = Auth.auth().currentUser?.uid else { return }
         
-        db.collection("users").document(uid!).collection("recents").order(by: "date", descending: true).addSnapshotListener { (snap, err) in
+        db.collection("users").document(uid).collection("recents").order(by: "date", descending: true).addSnapshotListener { (snap, err) in
             
             if err != nil {
                 print((err?.localizedDescription)!)
